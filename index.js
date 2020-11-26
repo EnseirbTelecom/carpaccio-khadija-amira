@@ -2,12 +2,9 @@
 let express = require('express');
 let bodyParser = require("body-parser");
 let app = express();
+let functions = require('./functions/functions');
 
-app.get("/id", (req, res) => {
-    res.status(200).json({
-        "id": "carpaccio-khadija-amira"
-    });
-});
+app.get("/id", functions.getId);
 
 app.post("/bill", (req, res) => {
     let prices = req.body.prices;
@@ -32,4 +29,5 @@ app.post("/bill", (req, res) => {
         })
     }
 })
-app.listen(3002, () => { console.log("Waiting for requests...."); })
+
+module.exports = app;

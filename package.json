@@ -2,10 +2,23 @@
   "name": "carpaccio",
   "version": "1.0.0",
   "description": "+ AL KTABE Amera\r + ABDELOUALI Khadija",
-  "main": "index.js",
+  "main": "server.js",
+  "devDependencies": {
+    "@stryker-mutator/core": "^4.1.2",
+    "@stryker-mutator/jest-runner": "^4.1.2",
+    "jest": "^26.6.1",
+    "standard": "^16.0.3"
+  },
   "scripts": {
-    "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.js",
+    "test": "jest --coverage",
+    "mutation": "stryker run"
+  },
+  "standard": {
+    "ignore": [
+      "/reports/**/*.js",
+      "/coverage/**/*.js"
+    ]
   },
   "repository": {
     "type": "git",
@@ -14,7 +27,8 @@
   "author": "Khadija ABDELOUALI & Amera AL KTABE",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.16.3"
+    "express": "^4.16.3",
+    "supertest": "^6.0.1"
   },
   "bugs": {
     "url": "https://github.com/EnseirbTelecom/carpaccio-khadija-amira/issues"
