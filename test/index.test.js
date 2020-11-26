@@ -1,5 +1,5 @@
 const request = require("supertest"); // supertest is a framework that allows to easily test web apis
-const app = require("../index");
+const app = require("../src/api");
 
 // test("testing server routes", () => {
     test("GET /id - success", async () => {
