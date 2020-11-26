@@ -6,6 +6,7 @@ APIs de calcul de prix
 
 ## Utilisation
 Lancer le serveur: `npm start`
+
 Lancer les test avec couverture: `npm test`
 
 ## Team's member
