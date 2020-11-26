@@ -1,7 +1,7 @@
 module.exports = {
-    getId: (req, res) => {
-        res.status(200).json({
+    getId: () => {
+        return {
             "id": "carpaccio-khadija-amira"
-        });
+        }
     }
 }
