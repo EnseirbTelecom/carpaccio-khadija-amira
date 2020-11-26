@@ -2,7 +2,7 @@
   "name": "carpaccio",
   "version": "1.0.0",
   "description": "+ AL KTABE Amera\r + ABDELOUALI Khadija",
-  "main": "server.js",
+  "main": "src/server.js",
   "devDependencies": {
     "@stryker-mutator/core": "^4.1.2",
     "@stryker-mutator/jest-runner": "^4.1.2",
@@ -10,7 +10,7 @@
     "standard": "^16.0.3"
   },
   "scripts": {
-    "start": "node server.js",
+    "start": "node src/server.js",
     "test": "jest --coverage",
     "mutation": "stryker run"
   },
