@@ -13,7 +13,8 @@
   "scripts": {
     "start": "node src/server.js",
     "test": "jest --coverage",
-    "mutation": "stryker run"
+    "mutation": "stryker run",
+    "standard": "standard --fix"
   },
   "standard": {
     "ignore": [
