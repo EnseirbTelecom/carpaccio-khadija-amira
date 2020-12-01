@@ -1,7 +1,7 @@
 module.exports = {
-    getId: () => {
-        return {
-            "id": "carpaccio-khadija-amira"
-        }
+  getId: () => {
+    return {
+      id: 'carpaccio-khadija-amira'
     }
+  }
 }
