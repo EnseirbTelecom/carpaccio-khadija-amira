@@ -32,15 +32,13 @@ test('No country code', () => {
 })
 
 test('Wrong country code', () => {
-  expect(bill.getTotalUsingTVA([1, 2], [2, 3], "MA")).toEqual({
+  expect(bill.getTotalUsingTVA([1, 2], [2, 3], 'MA')).toEqual({
     error: 'Please enter a valid country code'
   })
 })
 
 test('Total with TVA', () => {
-  expect(bill.getTotalUsingTVA([1, 2], [2, 3], "DE")).toEqual({
+  expect(bill.getTotalUsingTVA([1, 2], [2, 3], 'DE')).toEqual({
     total: 9.6
   })
 })
-
-

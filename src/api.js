@@ -13,12 +13,10 @@ app.get('/id', (req, res) => {
 })
 
 app.post('/bill', function (req, res) {
-  const prices = req.body.prices;
-  const quantities = req.body.quantities;
-  const country = req.body.country;
-  res.json(bill.getTotalUsingTVA(prices, quantities, country));
+  const prices = req.body.prices
+  const quantities = req.body.quantities
+  const country = req.body.country
+  res.json(bill.getTotalUsingTVA(prices, quantities, country))
 })
-
-
 
 module.exports = app

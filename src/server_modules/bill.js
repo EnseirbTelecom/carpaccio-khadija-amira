@@ -1,3 +1,5 @@
+const tva = require('./TVA')
+
 const verifyValues = (array) => {
   for (let i = 0; i < array.length; i++) {
     if (array[i] < 0) {
@@ -15,67 +17,7 @@ const verifyPricesQuantities = (prices, quantities) => {
   }
 }
 
-const TVA = {
-  "DE": "20",
-  "UK": "21",
-  "FR": "20",
-  "IT": "25",
-  "ES": "19",
-  "PL": "21",
-  "RO": "20",
-  "NL": "20",
-  "BE": "19",
-  "EL": "23",
-  "CZ": "27",
-  "PT": "23",
-  "HU": "27",
-  "SE": "23",
-  "AT": "22",
-  "BG": "21",
-  "DK": "21",
-  "FI": "17",
-  "SK": "18",
-  "IE": "21",
-  "HR": "23",
-  "LT": "23",
-  "SI": "24",
-  "LV": "20",
-  "EE": "22",
-  "CY": "21",
-  "LU": "25",
-  "MT": "20",
-};
-
-let verifyTVA = function (country) {
-  // if (country === undefined) {
-  //   return 0;
-  // } else {
-
-  // }
-  let keys = Object.values(TVA);
-  // console.log(keys.hasOwnProperty("DE"));
-  console.log(TVA.hasOwnProperty("DE"));
-  if (TVA.hasOwnProperty(country)) {
-    return TVA[country];
-  } else {
-    return -1;
-  }
-  // } else {
-  //   let idx = 0;
-  //   TVA.some(countries => {
-  //     idx++;
-  //     if (countries.hasOwnProperty(country)) {
-  //       console.log("TVA_VERIFY " + countries[country]);
-  //       return countries[country]
-  //     }
-  //   })
-  //   if (idx === TVA.length) {
-  //     return -1;
-  //   }
-  // }
-};
-
-let getTotal = (prices, quantities) => {
+const getTotal = (prices, quantities) => {
   // Verify that the two arrays have the same length
   if (!verifyPricesQuantities(prices, quantities)) {
     return {
@@ -107,15 +49,14 @@ module.exports = {
       return {
         error: 'The country code is mandatory'
       }
-    }
-    else if (verifyTVA(country) === -1) {
+    } else if (tva.verifyTVA(country) === -1) {
       return {
         error: 'Please enter a valid country code'
       }
     } else {
       // Get the Total
-      let totalWithoutTVA = getTotal(prices, quantities);
-      let totalWithTVA = totalWithoutTVA.total + totalWithoutTVA.total * parseInt(verifyTVA(country)) / 100;
+      const totalWithoutTVA = getTotal(prices, quantities)
+      const totalWithTVA = totalWithoutTVA.total + totalWithoutTVA.total * parseInt(tva.verifyTVA(country)) / 100
       return {
         total: totalWithTVA
       }
