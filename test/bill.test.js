@@ -42,3 +42,18 @@ test('Total with TVA', () => {
     total: 9.6
   })
 })
+
+test('No discount', () => {
+  expect(bill.getTotalUsingTVA([1, 2], [2, 3], 'DE', "NO_DISCOUNT")).toEqual({
+    total: 9.6
+  })
+})
+
+// test('Progressive discount >= 1000', () => {
+//   expect(bill.getTotalUsingTVA([100, 5], [6, 100], 'DE', "Progressive_discount")).toEqual({
+//     total: 9.6
+//   })
+// })
+
+
+

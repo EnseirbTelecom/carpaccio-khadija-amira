@@ -1,4 +1,6 @@
-const tva = require('./TVA')
+const tva = require('./TVA');
+const CalculDiscount = require('./discount');
+const { calculateDiscount } = require('./discount');
 
 const verifyValues = (array) => {
   for (let i = 0; i < array.length; i++) {
@@ -43,7 +45,7 @@ const getTotal = (prices, quantities) => {
 
 module.exports = {
   getTotal,
-  getTotalUsingTVA: (prices, quantities, country) => {
+  getTotalUsingTVA: (prices, quantities, country, discount="") => {
     // Verify that the country exists in the table
     if (country === undefined) {
       return {
@@ -56,7 +58,10 @@ module.exports = {
     } else {
       // Get the Total
       const totalWithoutTVA = getTotal(prices, quantities)
-      const totalWithTVA = totalWithoutTVA.total + totalWithoutTVA.total * parseInt(tva.verifyTVA(country)) / 100
+      let totalWithTVA = totalWithoutTVA.total + totalWithoutTVA.total * parseInt(tva.verifyTVA(country)) / 100;
+      if (discount) {
+        totalWithTVA = totalWithTVA - CalculDiscount.calculateDiscount(discount, totalWithTVA);
+      }
       return {
         total: totalWithTVA
       }
