@@ -29,7 +29,8 @@
   "author": "Khadija ABDELOUALI & Amera AL KTABE",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.16.3"
+    "express": "^4.16.3",
+    "nodemon": "^2.0.6"
   },
   "bugs": {
     "url": "https://github.com/EnseirbTelecom/carpaccio-khadija-amira/issues"

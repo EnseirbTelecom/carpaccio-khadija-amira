@@ -1,26 +1,46 @@
 const bill = require('../src/server_modules/bill')
 const { TestScheduler } = require('jest')
 
-TestScheduler.test('Empty arrays', () => {
-  TestScheduler.expect(bill.getTotal([], [])).toEqual({
+test('Empty arrays', () => {
+  expect(bill.getTotal([], [])).toEqual({
     error: 'Prices and quantities should have the same length'
   })
 })
 
-TestScheduler.test('Arrays with different lengths', () => {
-  TestScheduler.expect(bill.getTotal([1, 0], [1])).toEqual({
+test('Arrays with different lengths', () => {
+  expect(bill.getTotal([1, 0], [1])).toEqual({
     error: 'Prices and quantities should have the same length'
   })
 })
 
-TestScheduler.test('Prices with negative values', () => {
-  TestScheduler.expect(bill.getTotal([-1, 0], [1, 1])).toEqual({
+test('Prices with negative values', () => {
+  expect(bill.getTotal([-1, 0], [1, 1])).toEqual({
     error: 'Values should be >= 0'
   })
 })
 
-TestScheduler.test('Total', () => {
-  TestScheduler.expect(bill.getTotal([1, 2], [2, 3])).toEqual({
+test('Total', () => {
+  expect(bill.getTotal([1, 2], [2, 3])).toEqual({
     total: 8
   })
 })
+
+test('No country code', () => {
+  expect(bill.getTotalUsingTVA([1, 2], [2, 3])).toEqual({
+    error: 'The country code is mandatory'
+  })
+})
+
+test('Wrong country code', () => {
+  expect(bill.getTotalUsingTVA([1, 2], [2, 3], "MA")).toEqual({
+    error: 'Please enter a valid country code'
+  })
+})
+
+test('Total with TVA', () => {
+  expect(bill.getTotalUsingTVA([1, 2], [2, 3], "DE")).toEqual({
+    total: 9.6
+  })
+})
+
+
