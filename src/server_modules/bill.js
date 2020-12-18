@@ -1,6 +1,7 @@
 const tva = require('./TVA');
 const CalculDiscount = require('./discount');
 const { calculateDiscount } = require('./discount');
+const fetch = require('node-fetch');
 
 const verifyValues = (array) => {
   for (let i = 0; i < array.length; i++) {
@@ -43,28 +44,50 @@ const getTotal = (prices, quantities) => {
   }
 }
 
+let getTotalUsingTVA = (prices, quantities, country, discount = "") => {
+  // Verify that the country exists in the table
+  if (country === undefined) {
+    return {
+      error: 'The country code is mandatory'
+    }
+  } else if (tva.verifyTVA(country) === -1) {
+    return {
+      error: 'Please enter a valid country code'
+    }
+  } else {
+    // Get the Total
+    const totalWithoutTVA = getTotal(prices, quantities)
+    let totalWithTVA = totalWithoutTVA.total + totalWithoutTVA.total * parseInt(tva.verifyTVA(country)) / 100;
+    if (discount) {
+      totalWithTVA = totalWithTVA - CalculDiscount.calculateDiscount(discount, totalWithTVA);
+    }
+    return {
+      total: totalWithTVA.toFixed(2)
+    }
+  }
+}
+
 module.exports = {
   getTotal,
-  getTotalUsingTVA: (prices, quantities, country, discount="") => {
-    // Verify that the country exists in the table
-    if (country === undefined) {
-      return {
-        error: 'The country code is mandatory'
-      }
-    } else if (tva.verifyTVA(country) === -1) {
-      return {
-        error: 'Please enter a valid country code'
+  getTotalUsingTVA,
+  getTotalInDifferentCurrency: async (prices, quantities, country, discount = "", currency = "") => {
+    let totalTVA = getTotalUsingTVA(prices, quantities, country, discount);
+    if (currency) {
+      let url = "https://api.exchangeratesapi.io/latest?symbols=" + currency;
+      let resultAPI = await fetch(url).then(res => res.json());
+      if (!resultAPI.rates) {
+        return {
+          error: "Please enter a valid currency"
+        }
+      } else {
+        let rate = resultAPI.rates[currency];
+        let totalInDifferentCurrency = totalTVA.total * rate;
+        return {
+          total: totalInDifferentCurrency.toFixed(2)
+        }
       }
     } else {
-      // Get the Total
-      const totalWithoutTVA = getTotal(prices, quantities)
-      let totalWithTVA = totalWithoutTVA.total + totalWithoutTVA.total * parseInt(tva.verifyTVA(country)) / 100;
-      if (discount) {
-        totalWithTVA = totalWithTVA - CalculDiscount.calculateDiscount(discount, totalWithTVA);
-      }
-      return {
-        total: totalWithTVA
-      }
+      return totalTVA;
     }
   }
 }
