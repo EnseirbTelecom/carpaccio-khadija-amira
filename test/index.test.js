@@ -12,10 +12,37 @@ test('GET /id', async () => {
 test('POST /bill', async () => {
   const { body } = await request(app).post('/bill').send({
     prices: [1, 2],
-    quantities: [2, 3]
+    quantities: [2, 3],
+    country: "DE",
   })
   // uses the request function that calls on express app instance
   expect(body).toEqual({
-    error: 'The country code is mandatory'
+    total: 9.6
+  })
+})
+
+test('POST /bill with currency code', async () => {
+  const { body } = await request(app).post('/bill').send({
+    prices: [1, 2],
+    quantities: [2, 3],
+    country: "DE",
+    currency: "CAD"
+  })
+  // uses the request function that calls on express app instance
+  expect(body).toEqual({
+    total: "14.92"
+  })
+})
+
+test('POST /bill with an incorrect currency code', async () => {
+  const { body } = await request(app).post('/bill').send({
+    prices: [1, 2],
+    quantities: [2, 3],
+    country: "DE",
+    currency: "test"
+  })
+  // uses the request function that calls on express app instance
+  expect(body).toEqual({
+    error: "Please enter a valid currency"
   })
 })
