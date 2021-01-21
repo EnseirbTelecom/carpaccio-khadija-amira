@@ -30,7 +30,8 @@ const TVA = {
 }
 
 const verifyTVA = function (country) {
-  if (TVA.hasOwnProperty(country)) {
+  if (Object.prototype.hasOwnProperty.call(TVA, country)) {
+  // if (TVA.hasOwnProperty(country)) {
     return TVA[country]
   } else {
     return -1

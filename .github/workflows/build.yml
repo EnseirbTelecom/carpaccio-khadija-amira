@@ -28,6 +28,7 @@ jobs:
     - run: npm run start
     - run: npm test
     - run: npm run mutation
+    - run: npx standard --fix
 
 build:
 

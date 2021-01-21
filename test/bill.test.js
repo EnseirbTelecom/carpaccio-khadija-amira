@@ -1,5 +1,4 @@
 const bill = require('../src/server_modules/bill')
-const { TestScheduler } = require('jest')
 
 test('Empty arrays', () => {
   expect(bill.getTotal([], [])).toEqual({
@@ -44,83 +43,79 @@ test('Total with TVA', () => {
 })
 
 test('No discount', () => {
-  expect(bill.getTotalUsingTVA([1, 2], [2, 3], 'DE', "NO_DISCOUNT")).toEqual({
+  expect(bill.getTotalUsingTVA([1, 2], [2, 3], 'DE', 'NO_DISCOUNT')).toEqual({
     total: 9.6
   })
 })
 
 test('No discount', () => {
-  expect(bill.getTotalUsingTVA([1, 2], [2, 3], 'DE', "PROGRESSIVE_DISCOUNT")).toEqual({
+  expect(bill.getTotalUsingTVA([1, 2], [2, 3], 'DE', 'PROGRESSIVE_DISCOUNT')).toEqual({
     total: 9.6
   })
 })
 
 test('Progressive discount >= 1000', () => {
-  expect(bill.getTotalUsingTVA([100, 5], [6, 100], "DE", "Progressive_discount")).toEqual({
+  expect(bill.getTotalUsingTVA([100, 5], [6, 100], 'DE', 'Progressive_discount')).toEqual({
     total: 1280.4
   })
 })
 
 test('Progressive discount >= 5000', () => {
-  expect(bill.getTotalUsingTVA([500, 5], [6, 500], "DE", "Progressive_discount")).toEqual({
+  expect(bill.getTotalUsingTVA([500, 5], [6, 500], 'DE', 'Progressive_discount')).toEqual({
     total: 6270
   })
 })
 
 test('Progressive discount >= 7000', () => {
-  expect(bill.getTotalUsingTVA([500, 7], [7, 500], "DE", "Progressive_discount")).toEqual({
+  expect(bill.getTotalUsingTVA([500, 7], [7, 500], 'DE', 'Progressive_discount')).toEqual({
     total: 7812
   })
 })
 
 test('Progressive discount >= 10000', () => {
-  expect(bill.getTotalUsingTVA([500, 10], [10, 500], "DE", "Progressive_discount")).toEqual({
+  expect(bill.getTotalUsingTVA([500, 10], [10, 500], 'DE', 'Progressive_discount')).toEqual({
     total: 10800
   })
 })
 
 test('Progressive discount >= 50000', () => {
-  expect(bill.getTotalUsingTVA([500, 50], [50, 500], "DE", "Progressive_discount")).toEqual({
+  expect(bill.getTotalUsingTVA([500, 50], [50, 500], 'DE', 'Progressive_discount')).toEqual({
     total: 51000
   })
 })
 
 test('Flat discount', () => {
-  expect(bill.getTotalUsingTVA([500, 50], [50, 500], "DE", "FLAT_DISCOUNT")).toEqual({
+  expect(bill.getTotalUsingTVA([500, 50], [50, 500], 'DE', 'FLAT_DISCOUNT')).toEqual({
     total: 42000
   })
 })
 
 test('Fixed discount', () => {
-  expect(bill.getTotalUsingTVA([5, 4], [15, 10], "DE", "FIXED_DISCOUNT")).toEqual({
+  expect(bill.getTotalUsingTVA([5, 4], [15, 10], 'DE', 'FIXED_DISCOUNT')).toEqual({
     total: 128
   })
 })
 
 test('Fixed discount', () => {
-  expect(bill.getTotalUsingTVA([40, 4], [15, 10], "DE", "FIXED_DISCOUNT")).toEqual({
+  expect(bill.getTotalUsingTVA([40, 4], [15, 10], 'DE', 'FIXED_DISCOUNT')).toEqual({
     total: 718
   })
 })
 
 test('Fixed discount', () => {
-  expect(bill.getTotalUsingTVA([40, 40], [15, 10], "DE", "FIXED_DISCOUNT")).toEqual({
+  expect(bill.getTotalUsingTVA([40, 40], [15, 10], 'DE', 'FIXED_DISCOUNT')).toEqual({
     total: 1000
   })
 })
 
 test('No discount', () => {
-  expect(bill.getTotalUsingTVA([1, 2], [2, 3], 'DE', "FIXED_DISCOUNT")).toEqual({
+  expect(bill.getTotalUsingTVA([1, 2], [2, 3], 'DE', 'FIXED_DISCOUNT')).toEqual({
     total: 9.6
   })
 })
 
 test('Incorrect discount', () => {
-  expect(bill.getTotalUsingTVA([1, 2], [2, 3], 'DE', "skfhq")).toEqual({
-    error: "Please enter a correct discount code"
+  expect(bill.getTotalUsingTVA([1, 2], [2, 3], 'DE', 'skfhq')).toEqual({
+    error: 'Please enter a correct discount code'
   })
 })
-
-
-
-

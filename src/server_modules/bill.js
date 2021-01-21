@@ -1,6 +1,6 @@
-const tva = require('./TVA');
-const CalculDiscount = require('./discount');
-const currencies = require('./currencies');
+const tva = require('./TVA')
+const CalculDiscount = require('./discount')
+const currencies = require('./currencies')
 
 const verifyValues = (array) => {
   for (let i = 0; i < array.length; i++) {
@@ -43,7 +43,7 @@ const getTotal = (prices, quantities) => {
   }
 }
 
-let getTotalUsingTVA = (prices, quantities, country, discount = "") => {
+const getTotalUsingTVA = (prices, quantities, country, discount = '') => {
   // Verify that the country exists in the table
   if (country === undefined) {
     return {
@@ -56,14 +56,14 @@ let getTotalUsingTVA = (prices, quantities, country, discount = "") => {
   } else {
     // Get the Total
     const totalWithoutTVA = getTotal(prices, quantities)
-    let totalWithTVA = totalWithoutTVA.total + totalWithoutTVA.total * parseInt(tva.verifyTVA(country)) / 100;
+    let totalWithTVA = totalWithoutTVA.total + totalWithoutTVA.total * parseInt(tva.verifyTVA(country)) / 100
     if (discount) {
       if (CalculDiscount.calculateDiscount(discount, totalWithTVA) === -1) {
         return {
-          error: "Please enter a correct discount code"
+          error: 'Please enter a correct discount code'
         }
       } else {
-        totalWithTVA = totalWithTVA - CalculDiscount.calculateDiscount(discount, totalWithTVA);
+        totalWithTVA = totalWithTVA - CalculDiscount.calculateDiscount(discount, totalWithTVA)
       }
     }
     return {
@@ -75,12 +75,12 @@ let getTotalUsingTVA = (prices, quantities, country, discount = "") => {
 module.exports = {
   getTotal,
   getTotalUsingTVA,
-  getTotalInDifferentCurrency: async (prices, quantities, country, discount = "", currency = "") => {
-    let totalTVA = getTotalUsingTVA(prices, quantities, country, discount);
+  getTotalInDifferentCurrency: async (prices, quantities, country, discount = '', currency = '') => {
+    const totalTVA = getTotalUsingTVA(prices, quantities, country, discount)
     if (currency) {
-      return await currencies.getRateExchange(totalTVA.total, currency);
+      return await currencies.getRateExchange(totalTVA.total, currency)
     } else {
-      return totalTVA;
+      return totalTVA
     }
   }
 }
