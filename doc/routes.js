@@ -11,8 +11,8 @@
 /**
  * @route POST /id
  * @group bill
- * @param {Array} prices.body.required - prices' array
- * @param {Array} quantities.body.required - quantities' array
+ * @param {array} prices.body.required - prices' array
+ * @param {array} quantities.body.required - quantities' array
  * @param {string} country.body.required - country code
  * @param {string} discount.body - discount
  * @param {string} currency.body - currency
