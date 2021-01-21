@@ -20,6 +20,9 @@
     "ignore": [
       "/reports/**/*.js",
       "/coverage/**/*.js"
+    ],
+    "env": [
+      "jest"
     ]
   },
   "repository": {
