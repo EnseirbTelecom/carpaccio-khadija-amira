@@ -29,7 +29,7 @@ test('POST /bill with currency code', async () => {
   })
   // uses the request function that calls on express app instance
   expect(body).toEqual({
-    total: '14.76'
+    total: '14.73'
   })
 })
 
