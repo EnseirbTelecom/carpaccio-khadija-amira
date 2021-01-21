@@ -1,7 +1,7 @@
 /**
  * @typedef Bill
- * @property {Array} prices.required
- * @property {Array} quantities.required
+ * @property {array} prices.required
+ * @property {array} quantities.required
  * @property {string} country.required
  * @property {string} discount
  * @property {string} currency
@@ -18,7 +18,7 @@
 
 /**
  * @typedef Total
- * @property {Int} total.required
+ * @property {integer} total.required
  *
  */
 
